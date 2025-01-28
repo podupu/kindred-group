@@ -8,7 +8,7 @@ FROM mcr.microsoft.com/playwright:focal
 RUN apt-get update && apt-get -y install libnss3 libatk-bridge2.0-0 libdrm-dev libxkbcommon-dev libgbm-dev libasound-dev libatspi2.0-0 libxshmfence-dev
 # Setup Repo and Install dependencies
 WORKDIR /repo
-COPY package.json yarn.lock ./
+COPY package.json ./
 RUN yarn install --frozen-lockfile --production --silent
 
 # Copy src to repo
