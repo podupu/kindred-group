@@ -88,7 +88,7 @@ kindred-group/
 
 Complete end-to-end CI/CD is accomplished using:
 
-* [CircleCI](https://circleci.com/gh/PODHUPU/kindred/tree/master)
+* [CircleCI](https://app.circleci.com/pipelines/github/podupu/kindred-group/5/workflows/7830a0e6-2ab9-4ac9-92ab-1e872754f0b2/jobs/18)
 * [DockerHub](https://hub.docker.com/)
 
 ### Reports
