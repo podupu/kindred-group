@@ -1,29 +1,15 @@
-version: 2.1  # Specify the CircleCI version
-
-executors:
-  default:
-    docker:
-      - image: circleci/python:3.11  # Updated Python version for compatibility
-    working_directory: ~/project  # Set working directory
+version: 2.1
 
 jobs:
   build:
-    executor: default
+    docker:
+      - image: cimg/python:3.8  # Updated to CircleCI's modern Python image
     steps:
-      - checkout  # Checkout code from your repository
+      - checkout  # Checkout your code from the repository
 
       - setup_remote_docker:
-          version: 24.0  # Specify Docker version
-          docker_layer_caching: true  # Enable caching for faster builds
-
-      - run:
-          name: Install Dependencies
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y curl
-            curl -o- https://deb.nodesource.com/setup_18.x | bash
-            sudo apt-get install -y nodejs
-            npm install --global playwright@latest
+          version: 24.0  # Latest stable Docker version
+          docker_layer_caching: true  # Optional: enables layer caching
 
       - run:
           name: Build Docker Image
@@ -36,14 +22,13 @@ jobs:
             docker run --rm -v $PWD/playwright-report:/repo/playwright-report my-playwright-app
 
       - store_artifacts:
-          path: playwright-report  # Store Playwright report as artifacts
-          destination: playwright-report
+          path: playwright-report  # Path to the Playwright report directory
+          destination: playwright-report  # Directory in CircleCI where artifacts will be stored
 
       - store_test_results:
-          path: playwright-report  # Store test results for CircleCI processing
+          path: playwright-report  # Path to the test results JSON file or directory
 
 workflows:
-  version: 2.1
   test:
     jobs:
       - build
